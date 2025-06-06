@@ -1,6 +1,8 @@
 pipeline {
     agent any
-
+    tools {
+        maven 'Maven3.6.3'  // Tên bạn vừa đặt ở bước trên
+    }
     stages {
         stage('Checkout') {
             steps {
