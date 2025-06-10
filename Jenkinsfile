@@ -20,9 +20,17 @@ pipeline {
 
         stage('Deploy') {
             steps {
-              sshagent(credentials: ['MySSHKey']) {                   
-                sh 'sftp backoffice-0.0.1-SNAPSHOT.jar Administrator@192.168.70.123:/c/Users/Administrator/Deploy/'
-                sh 'ssh Administrator@192.168.70.123 "taskkill /F /IM java.exe || exit 0 && java -jar C:/Users/Administrator/Deploy/backoffice.jar"'
+              withCredentials([sshUserPrivateKey(credentialsId: 'MySSHKey', keyFileVariable: 'KEY')]) {
+                    sh '''
+                        echo "Uploading file to Windows via SFTP..."
+                        sftp -oStrictHostKeyChecking=no -i $KEY Administrator@192.168.70.123 <<EOF
+                        put backoffice-0.0.1-SNAPSHOT.jar /C:/Users/Administrator/Deploy/backoffice.jar
+                        bye
+                        EOF
+
+                        echo "Running .jar on Windows using SSH..."
+                        ssh -oStrictHostKeyChecking=no -i $KEY Administrator@192.168.70.123 "java -jar C:/Users/Administrator/Deploy/backoffice.jar > C:/Users/Administrator/Deploy/run.log 2>&1 &"
+                    '''
               }     
             }
         }
