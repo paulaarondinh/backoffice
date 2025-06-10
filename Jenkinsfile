@@ -40,7 +40,7 @@ pipeline {
                     sh '''
                         echo "Uploading file to Windows via SFTP..."
                         sftp -oStrictHostKeyChecking=no -i $KEY Administrator@192.168.70.123 <<EOF
-                        put backoffice-0.0.1-SNAPSHOT.jar /C:/Users/Administrator/Deploy/backoffice.jar
+                        put target/backoffice-0.0.1-SNAPSHOT.jar /C:/Users/Administrator/Deploy/backoffice.jar
                         bye
                         EOF
 
