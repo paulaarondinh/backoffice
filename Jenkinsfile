@@ -14,17 +14,17 @@ pipeline {
 
         stage('Clean') {
             steps {
-                sh '''
-                echo "Stopping old Java processes..."
-                pkill -f 'backoffice-0.0.1-SNAPSHOT.jar' || true
-    
-                echo "Fixing permission..."
-                sudo chown -R jenkins:jenkins target || true
-                sudo chmod -R u+w target || true
-    
-                echo "Cleaning..."
-                rm -rf target
-            '''
+               sh '''
+                    echo "Stopping old app..."
+                    pkill -f 'backoffice-0.0.1-SNAPSHOT.jar' || true
+        
+                    echo "Fixing permission..."
+                    chown -R $(whoami):$(whoami) target || true
+                    chmod -R u+w target || true
+        
+                    echo "Cleaning..."
+                    rm -rf target || true
+                '''
             }
         }
         
