@@ -12,6 +12,12 @@ pipeline {
             }
         }
 
+        stage('Clean') {
+            steps {
+                sh 'rm -rf target'
+            }
+        }
+        
         stage('Build') {
             steps {
                 sh 'mvn clean package'
