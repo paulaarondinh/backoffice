@@ -20,8 +20,10 @@ pipeline {
 
         stage('Deploy') {
             steps {
+              sshagent(credentials: ['win-ssh-key']) {                   
                 sh 'scp target/backoffice-0.0.1-SNAPSHOT.jar Administrator@192.168.70.123:/c/Deploy/backoffice.jar'
                 sh 'ssh Administrator@192.168.70.123 "taskkill /F /IM java.exe || exit 0 && java -jar C:/Deploy/backoffice.jar"'
+              }     
             }
         }
     }
