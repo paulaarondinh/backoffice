@@ -1,7 +1,7 @@
 pipeline {
     agent any
     tools {
-        maven 'Maven 3.6.3'  // Tên bạn vừa đặt ở bước trên
+        maven 'Maven 3.9.6'  // Tên bạn vừa đặt ở bước trên
         jdk 'jdk21'
 
     }
