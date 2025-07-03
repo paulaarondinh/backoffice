@@ -1,7 +1,7 @@
 pipeline {
     agent any
     parameters{
-        choice(name: 'GIT_BRANCH', choices :['dev','stg','prod'], description : 'Select Git branch to deploy'
+        choice(name: 'GIT_BRANCH', choices :['dev','stg','prod'], description : 'Select Git branch to deploy')
     }
     tools {
         maven 'Maven 3.9.6'  // Tên bạn vừa đặt ở bước trên
